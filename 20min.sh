@@ -17,10 +17,10 @@ then
 fi
 
 echo "search page"
-java -jar seek20min.jar "${DATE}_PAR.pdf" 2>/dev/null | while read PAGE NUM; 
+java -jar seek20min.jar "${DATE}_PAR.pdf" 2>/dev/null | awk '{print $1, $2}' | while read PAGE NUM; 
 do 
 	NUM=`echo $NUM | awk '{printf("%d\n", $0)}'`
-	./SumatraPDF.exe -print-settings "$PAGE,$NBx" -print-to-default  "${DATE}_PAR.pdf"
+	./SumatraPDF.exe -print-settings "$PAGE,${NB}x" -print-to-default  "${DATE}_PAR.pdf"	
 	curl "http://www.courbis.fr/Solution-de-la-grille-No-${NUM}.html" |\
 	grep frwiktionary | sed 's#<[^>]*>##g' > solution.txt
 	./SumatraPDF.exe -print-to-default solution.txt
