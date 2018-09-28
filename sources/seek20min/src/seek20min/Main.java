@@ -1,46 +1,29 @@
 package seek20min;
 
-import java.io.File;
-import java.io.Writer;
-import java.io.OutputStreamWriter;
-
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
-import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.pdfbox.cos.COSDocument;
-import org.apache.pdfbox.io.RandomAccessFile;
-import org.apache.pdfbox.pdfparser.PDFParser;
-
-  //private static char[] nbCA = { 'M', 'o', 'T', 's', ' ', 'F', 'L', 65475, 65417, 'c', 'h', 65475, 65417, 's', ' ', ' ', 'N', 65474, 65456 };
-  //private static String nbStr = new String(nbCA);
-
+import javax.print.PrintService;
+import javax.print.PrintServiceLookup;
 
 public class Main{
-   public static void main(String args[]) {
-       PDDocument document = null;     
-       try {
-    	   String pdfFile = args[0];
-           document = PDDocument.load(new File( pdfFile ));
-           PDFTextStripper stripper = new PDFTextStripper();
-           for (int i = 0; i < document.getNumberOfPages(); i++) {
-        	   stripper.setStartPage( i );
-        	   stripper.setEndPage( i );
-        	   String txt = stripper.getText(document);
-        	   if (txt.contains("Horoscope")) {
-        		   System.out.print(i);
-        		   String[] lines = txt.split("\\r?\\n");
-        	        for (String line : lines) {
-        	        	if ( line.contains("N°")) {
-        	        		System.out.print(" " + line.replaceAll("N°", "").replaceAll(" ", "").replaceAll("Force.*$", ""));
-        	        		break;
-        	        	}
-        	        }
-        		   break;
-        	   }
-           }           
-           document.close();
-       }catch(Exception e) {
-    	   e.printStackTrace();
-       }
+   public static void main(String args[]) {      
+	   PrintService service = PrintServiceLookup.lookupDefaultPrintService();
+	   System.out.println(service.getName());
+	   
+	   int nbC = 1;
+	   try {
+		   nbC = Integer.valueOf(args[0]);
+	   }catch(Exception e) {	
+			nbC = 1;
+			System.out.println("No nb of copies set, default to 1");
+		}
+		
+		boolean needSol = true;
+		try {
+			needSol = Boolean.valueOf(args[1]);
+		}catch(Exception e) {
+			needSol = true;
+			System.out.println("Solution is printed by default");
+		}
+	   
+	   new TwentyMinutes(nbC, needSol);
    }
 }
