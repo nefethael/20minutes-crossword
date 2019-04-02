@@ -22,59 +22,57 @@ public class SeekSolutionInfo {
 			Document doc = Jsoup.connect(solStr).get();
 			Elements table = doc.select("table");
 			String prevTitle = "";
-			
+
 			for (Element tr : table.select("> tbody > tr")) {
-				for (Element td : tr.select("> td")) {						
+				for (Element td : tr.select("> td")) {
 					Element title = td.select("> a").first();
 					if (title != null && !title.text().isEmpty()) {
 						prevTitle = title.text();
-					}else {
-						if (td.textNodes().size() > 0 && !td.textNodes().get(0).text().trim().isEmpty() && !prevTitle.isEmpty()) {
-							dico.add(prevTitle + ": "+ td.textNodes().get(0).text().trim());
+					} else {
+						if (td.textNodes().size() > 0 && !td.textNodes().get(0).text().trim().isEmpty()
+								&& !prevTitle.isEmpty()) {
+							dico.add(prevTitle + ": " + td.textNodes().get(0).text().trim());
 						}
 					}
 				}
 			}
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return dico;
 	}
-	
+
 	public static void SavePDFPage(String fileStr, List<String> solMap) {
-		
-	    PDDocument doc = new PDDocument();
-	    PDPage page = new PDPage();
-	    doc.addPage( page );
-	    
-        PDRectangle mediabox = page.getMediaBox();
-        float margin = 72;
-        float startX = mediabox.getLowerLeftX() + margin;
-        float startY = mediabox.getUpperRightY() - margin;
-	    
-	    try {
+
+		PDDocument doc = new PDDocument();
+		PDPage page = new PDPage();
+		doc.addPage(page);
+
+		PDRectangle mediabox = page.getMediaBox();
+		float margin = 72;
+		float startX = mediabox.getLowerLeftX() + margin;
+		float startY = mediabox.getUpperRightY() - margin;
+
+		try {
 			PDPageContentStream contents = new PDPageContentStream(doc, page);
 			contents.beginText();
 			PDFont font = PDType1Font.HELVETICA;
 			float fontSize = 8;
 			float leading = 1.5f * fontSize;
-			contents.setFont(font, fontSize); 
-			
+			contents.setFont(font, fontSize);
+
 			contents.newLineAtOffset(startX, startY);
 
-			for (String line: solMap)
-	        {			
+			for (String line : solMap) {
 				contents.showText(line);
-				contents.newLineAtOffset(0, -leading);			
-	        }
-			
-			contents.endText(); 
-			contents.close();	
+				contents.newLineAtOffset(0, -leading);
+			}
+
+			contents.endText();
+			contents.close();
 			doc.save(fileStr);
 			doc.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
