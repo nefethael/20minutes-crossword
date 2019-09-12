@@ -9,12 +9,12 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 public class SeekPDFInfo {
 	
-	static final int IND_PAGE_NUM = 0;
-	static final int IND_DOC_NUM = 1;
-	static final int INVALID_NUM = -1;
+	public static final int IND_PAGE_NUM = 0;
+	public static final int IND_DOC_NUM = 1;
+	public static final int INVALID_NUM = -1;
 	
-	static public int[] GetInfo(String pdfFile) {
-		Pattern pattern = Pattern.compile("^.*?N°(\\d+).*$");
+	public static int[] GetInfo(String pdfFile) {
+		Pattern pattern = Pattern.compile("^.*N°\\s*(\\d+).*$");
 		PDDocument document = null;
 
 		int[] result = new int[IND_DOC_NUM + 1];

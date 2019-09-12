@@ -39,7 +39,7 @@ public class TwentyMinutes {
 	private static final String MRG_FMT = "./%s_merge.pdf";
 	private static final String ZONE = "Europe/Paris";
 
-	static private void PrintPDFPage(String fileStr, int pageNum, int nbCopie) throws IOException, PrinterException {
+	private static void PrintPDFPage(String fileStr, int pageNum, int nbCopie) throws IOException, PrinterException {
 		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
 		File file = new File(fileStr);
 		PDDocument document = null;
