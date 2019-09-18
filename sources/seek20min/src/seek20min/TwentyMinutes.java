@@ -129,7 +129,7 @@ public class TwentyMinutes {
 			if (infos != null && infos[SeekPDFInfo.IND_DOC_NUM] != SeekPDFInfo.INVALID_NUM) {
 				String solStr = String.format(SOLUTION_FMT, infos[SeekPDFInfo.IND_DOC_NUM]);
 				List<String> solMap = SeekSolutionInfo.GetSolutions(solStr);
-				if (solMap.size() > 0) {
+				if (!solMap.isEmpty()) {
 					SeekSolutionInfo.SavePDFPage(solFileStr, solMap);
 				} else {
 					System.err.println("Problem retrieving solutions");
@@ -150,7 +150,7 @@ public class TwentyMinutes {
 					pdDoc = PDDocument.load(new File(fileStr));
 					document.importPage(pdDoc.getDocumentCatalog().getPages().get(infos[SeekPDFInfo.IND_PAGE_NUM] - 1));
 				}
-				if (needSol) {
+				if (needSol && infos[SeekPDFInfo.IND_DOC_NUM] != SeekPDFInfo.INVALID_NUM) {
 					pdDoc = PDDocument.load(new File(solFileStr));
 					document.addPage(pdDoc.getDocumentCatalog().getPages().get(0));
 				}
