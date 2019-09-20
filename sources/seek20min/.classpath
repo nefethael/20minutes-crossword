@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="lib" path="pdfbox-2.0.10.jar"/>
 	<classpathentry kind="lib" path="commons-logging-1.2.jar"/>
-	<classpathentry kind="lib" path="fontbox-2.0.10.jar"/>
 	<classpathentry kind="lib" path="commons-io-2.6.jar"/>
 	<classpathentry kind="lib" path="jsoup-1.11.3.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="fontbox-2.0.16.jar"/>
+	<classpathentry kind="lib" path="pdfbox-2.0.16.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
