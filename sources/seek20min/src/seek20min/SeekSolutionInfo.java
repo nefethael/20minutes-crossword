@@ -29,7 +29,7 @@ public class SeekSolutionInfo {
 					if (title != null && !title.text().isEmpty()) {
 						prevTitle = title.text();
 					} else {
-						if (td.textNodes().size() > 0 && !td.textNodes().get(0).text().trim().isEmpty()
+						if (!td.textNodes().isEmpty() && !td.textNodes().get(0).text().trim().isEmpty()
 								&& !prevTitle.isEmpty()) {
 							dico.add(prevTitle + ": " + td.textNodes().get(0).text().trim());
 						}
