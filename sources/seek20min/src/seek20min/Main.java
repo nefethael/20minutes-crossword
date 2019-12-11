@@ -3,27 +3,61 @@ package seek20min;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
 
-public class Main {
-	public static void main(String args[]) {
-		PrintService service = PrintServiceLookup.lookupDefaultPrintService();
-		System.out.println(service.getName());
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 
-		int nbC = 1;
-		try {
-			nbC = Integer.valueOf(args[0]);
-		} catch (Exception e) {
-			nbC = 1;
-			System.out.println("No nb of copies set, default to 1");
-		}
+/**
+ * Entry point.
+ * 
+ * @author gpercherancier
+ *
+ */
+public class Main
+{
+    /** Logger. */
+    private static final Log LOG = LogFactory.getLog(Main.class);
 
-		boolean needSol = true;
-		try {
-			needSol = Boolean.valueOf(args[1]);
-		} catch (Exception e) {
-			needSol = true;
-			System.out.println("Solution is printed by default");
-		}
+    /**
+     * Main function.
+     * 
+     * @param args
+     *            Arguments:<BR>
+     *            - first is the number of copies<BR>
+     *            - second is a boolean for getting solutions or not
+     */
+    public static void main(String args[])
+    {
+        // Get default printer
+        PrintService printService = PrintServiceLookup.lookupDefaultPrintService();
+        TwentyMinutes twentyMin = new TwentyMinutes(printService);
 
-		new TwentyMinutes(nbC, needSol);
-	}
+        LOG.info("Found \"" + printService.getName() + "\" as default printer");
+
+        // Get number of copies
+        int nbC = 1;
+        try
+        {
+            nbC = Integer.valueOf(args[0]);
+        }
+        catch (Exception e)
+        {
+            nbC = 1;
+            LOG.info("No nb of copies set, default is 1");
+        }
+
+        // Get solution need
+        boolean needSol = true;
+        try
+        {
+            needSol = Boolean.valueOf(args[1]);
+        }
+        catch (Exception e)
+        {
+            needSol = true;
+            LOG.info("Solutions are printed by default");
+        }
+
+        // Perform job
+        twentyMin.run(nbC, needSol);
+    }
 }
