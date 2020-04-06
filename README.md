@@ -6,7 +6,7 @@
 - Set default printer to valid one
 - Edit 20min.bat to select how many pages you need
 - Launch 20min.sh script 
-	./20min [nb_pages_to_print]
+	./20min [nb_pages_to_print] [true|false add solutions]
 - Enjoy
 
 Details
@@ -21,7 +21,7 @@ Details
 Dependencies
 ============
 
-* PDFBox (2.0.10)
+* PDFBox (2.0.16)
 https://github.com/apache/pdfbox
 Apache License 2.0
 
